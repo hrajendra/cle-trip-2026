@@ -1,0 +1,25 @@
+/* Shared styles for all inner pages of cle-trip-2026 */
+/* Inlined into each page — no separate file needed */
+
+/*
+PALETTE
+  bg:        #0F1A14
+  surface:   #162A1D
+  border:    #2A4035
+  green-hi:  #A8D5B5
+  green-mid: #7BAF8A
+  green-lo:  #4A7A5A
+  amber:     #C8A96E
+  orange:    #E0956A
+  blue:      #A8C5DF
+  text:      #E8F0EB
+  muted:     #7BAF8A
+
+ACCENT COLORS PER SECTION
+  Prep:  amber  #C8A96E
+  Day 1: green  #A8D5B5
+  Day 2: green  #A8D5B5
+  Day 3: green  #A8D5B5
+  Food:  orange #E0956A
+  Ref:   blue   #A8C5DF
+*/

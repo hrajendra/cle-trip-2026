@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Food & Drink · CLE 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D5A3D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: #0F1A14; color: #E8F0EB; min-height: 100vh; padding-bottom: env(safe-area-inset-bottom, 32px); }
+
+.header {
+  background: linear-gradient(160deg, #3A1A0A 0%, #251008 60%, #0F1A14 100%);
+  padding: 20px 20px 24px;
+  padding-top: max(20px, calc(16px + env(safe-area-inset-top)));
+}
+.back { display: inline-flex; align-items: center; gap: 6px; color: #E0956A; font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 14px; opacity: 0.85; }
+.page-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #E0956A; opacity: 0.7; margin-bottom: 6px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #F5EAE0; line-height: 1.1; }
+.page-sub { font-size: 13px; color: #BF8A6A; margin-top: 6px; font-style: italic; }
+
+.content { padding: 20px 16px; max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+/* VENUE CARD */
+.venue { background: #162A1D; border: 1px solid #2A4035; border-radius: 14px; overflow: hidden; }
+.venue-header { padding: 14px 16px; border-bottom: 1px solid #2A4035; }
+.venue-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.venue-day { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #E0956A; }
+.venue-type { font-family: 'DM Mono', monospace; font-size: 10px; color: #7BAF8A; }
+.venue-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #F5EAE0; line-height: 1.2; margin-bottom: 4px; }
+.venue-tagline { font-size: 13px; color: #BF8A6A; font-style: italic; }
+
+.venue-body { padding: 14px 16px; }
+
+.vibe { font-size: 13px; color: #C8D8CE; line-height: 1.65; margin-bottom: 14px; }
+
+/* ORDER TABLE */
+.order-section { margin-bottom: 14px; }
+.order-section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4A7A5A; margin-bottom: 8px; }
+.order-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(42,64,53,0.5); }
+.order-row:last-child { border-bottom: none; }
+.order-name { font-size: 13px; color: #E8F0EB; font-weight: 500; flex: 1; }
+.order-note { font-size: 12px; color: #7BAF8A; margin-top: 2px; }
+.order-tags { display: flex; gap: 4px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+.badge { padding: 2px 8px; border-radius: 10px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; }
+.badge-star { background: rgba(200,169,110,0.2); color: #C8A96E; border: 1px solid rgba(200,169,110,0.3); }
+.badge-must { background: rgba(224,149,106,0.2); color: #E0956A; border: 1px solid rgba(224,149,106,0.3); }
+.badge-drink { background: rgba(168,197,223,0.15); color: #A8C5DF; border: 1px solid rgba(168,197,223,0.2); }
+.badge-skip { background: rgba(120,120,120,0.15); color: #888; border: 1px solid rgba(120,120,120,0.2); }
+
+/* DRINK SECTION */
+.drink-section { background: rgba(168,197,223,0.05); border: 1px solid rgba(168,197,223,0.12); border-radius: 10px; padding: 12px 14px; }
+.drink-section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #A8C5DF; margin-bottom: 8px; }
+.drink-item { padding: 7px 0; border-bottom: 1px solid rgba(42,64,53,0.4); font-size: 13px; color: #C8D8CE; line-height: 1.5; }
+.drink-item:last-child { border-bottom: none; }
+.drink-item strong { color: #E8F0EB; }
+
+/* DIVIDER */
+.day-divider { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+.day-divider span { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #4A7A5A; white-space: nowrap; }
+.day-divider::before, .day-divider::after { content: ''; flex: 1; height: 1px; background: #2A4035; }
+
+.nav-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+.nav-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: #162A1D; border: 1px solid #2A4035; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 600; color: #A8D5B5; }
+.nav-btn:active { background: #1E3A27; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back">← Home</a>
+  <div class="page-label">Food & Drink Guide</div>
+  <h1 class="page-title">What to<br>Eat & Drink</h1>
+  <p class="page-sub">Every stop. Every must-order. No restrictions.</p>
+</div>
+
+<div class="content">
+
+  <div class="day-divider"><span>Friday Night</span></div>
+
+  <!-- SOHO -->
+  <div class="venue">
+    <div class="venue-header">
+      <div class="venue-meta">
+        <span class="venue-day">Fri · 6:30 PM</span>
+        <span class="venue-type">Southern Comfort + Whiskey</span>
+      </div>
+      <div class="venue-name">Soho Chicken + Whiskey</div>
+      <div class="venue-tagline">The best fried chicken in Cleveland, with a bar to match.</div>
+    </div>
+    <div class="venue-body">
+      <div class="vibe">Ohio City's best dinner spot. Warm, buzzy, not fussy. They do Southern food seriously — the chicken has a crust that holds up, the sides are legitimately made, and the whiskey list is curated not just collected.</div>
+      <div class="order-section">
+        <div class="order-section-label">Starters</div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Fried Green Tomato with Elote</div>
+            <div class="order-note">The standout of the entire menu — don't miss it</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-star">⭐ Star</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Pimento Cheese</div>
+            <div class="order-note">Classic, done well, order with bread</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-must">Get It</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Fancy Deviled Eggs</div>
+            <div class="order-note">Better than they sound</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-must">Get It</span></div>
+        </div>
+      </div>
+      <div class="order-section">
+        <div class="order-section-label">Mains</div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Fried Chicken (bone-in)</div>
+            <div class="order-note">Ask for bone-in — better flavour, better crust</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-star">⭐ Star</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Sides: Mac & cheese + Collard greens</div>
+            <div class="order-note">Smoky gouda mac, greens with good acid</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-must">Get It</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Steak Frites</div>
+            <div class="order-note">Good if you want something different from chicken</div>
+          </div>
+          <div class="order-tags"></div>
+        </div>
+      </div>
+      <div class="drink-section">
+        <div class="drink-section-label">🥃 At the Bar</div>
+        <div class="drink-item">Their hot sauce is exceptional — they sell bottles, buy one.</div>
+        <div class="drink-item">Ask what bourbon cocktails they're doing — usually a few specials</div>
+        <div class="drink-item">Don't go too hard here — The Whiskey Bar is next</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHISKEY BAR -->
+  <div class="venue">
+    <div class="venue-header">
+      <div class="venue-meta">
+        <span class="venue-day">Fri · 9:00 PM</span>
+        <span class="venue-type">Scotch & Whiskey Bar</span>
+      </div>
+      <div class="venue-name">The Whiskey Bar</div>
+      <div class="venue-tagline">A wall of scotch. A bartender who knows it. That's the whole pitch.</div>
+    </div>
+    <div class="venue-body">
+      <div class="vibe">Cleveland Heights institution. Not a cocktail bar — a whisky bar. Come with intent. The bartenders have guided hundreds of flights and genuinely enjoy the process. Let them lead.</div>
+      <div class="drink-section">
+        <div class="drink-section-label">🥃 Scotch Strategy</div>
+        <div class="drink-item"><strong>Tell them your entry point</strong> — "I like Glenfiddich 12" or "I usually drink Laphroaig" — and they'll build from there</div>
+        <div class="drink-item"><strong>Ask for a guided flight of 3</strong> — they'll pick a progression. Palate cleanser between each.</div>
+        <div class="drink-item"><strong>Regions to explore:</strong> Speyside (fruity, floral), Highland (rich, complex), Islay (peaty, smoky), Lowland (light, grassy)</div>
+        <div class="drink-item"><strong>If you want to push it:</strong> ask for something you've never heard of — they stock bottles you won't find at a regular bar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-divider"><span>Saturday</span></div>
+
+  <!-- MASTHEAD -->
+  <div class="venue">
+    <div class="venue-header">
+      <div class="venue-meta">
+        <span class="venue-day">Sat · 1:00 PM</span>
+        <span class="venue-type">Brewery + Pizza</span>
+      </div>
+      <div class="venue-name">Masthead Brewing Co.</div>
+      <div class="venue-tagline">Best pizza in Cleveland. The beer is just as good.</div>
+    </div>
+    <div class="venue-body">
+      <div class="vibe">Order at the bar, buzzer tells you when food's ready, find a table. Zero pretension. The pizza is genuinely extraordinary for a brewery — personal-sized, wood-fired, thin crust with serious toppings. Don't let the casual format fool you.</div>
+      <div class="order-section">
+        <div class="order-section-label">Food</div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Whatever pizza is on the seasonal menu</div>
+            <div class="order-note">Just order it — people describe it as the best pizza they've ever had</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-star">⭐ Star</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Soft Pretzel</div>
+            <div class="order-note">Get it. It's somehow perfect.</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-must">Get It</span></div>
+        </div>
+      </div>
+      <div class="drink-section">
+        <div class="drink-section-label">🍺 Beer</div>
+        <div class="drink-item"><strong>Order the flight</strong> — 4 samples, lets you try seasonal taps before committing</div>
+        <div class="drink-item">Ask what's new — they rotate regularly and always have something interesting</div>
+        <div class="drink-item">Their IPAs and lagers are consistently well-made</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRIFFIN -->
+  <div class="venue">
+    <div class="venue-header">
+      <div class="venue-meta">
+        <span class="venue-day">Sat · 7:00 PM</span>
+        <span class="venue-type">Gin Bar + Cider House</span>
+      </div>
+      <div class="venue-name">Griffin Cider House & Gin Bar</div>
+      <div class="venue-tagline">The gin night. Come with curiosity.</div>
+    </div>
+    <div class="venue-body">
+      <div class="vibe">Lakewood neighbourhood pub that takes gin as seriously as The Whiskey Bar takes scotch. Cozy, dimly lit, bar up front and a lounge in the back. Bartenders are genuinely into it — tell them what you know and they'll take you somewhere interesting.</div>
+      <div class="drink-section">
+        <div class="drink-section-label">🍸 Gin Strategy</div>
+        <div class="drink-item"><strong>Styles to know:</strong> London Dry (classic, juniper-forward), Contemporary (floral, citrus), Old Tom (slightly sweeter), Navy Strength (high ABV, punchy)</div>
+        <div class="drink-item"><strong>Ask for a gin flight</strong> — tell them "we want to understand the range"</div>
+        <div class="drink-item"><strong>Cocktail recs:</strong> G&T with a specific tonic pairing, Negroni if they're making one well, Gimlet for something clean</div>
+        <div class="drink-item"><strong>Also order:</strong> a cider flight — the cider program is legit and worth trying alongside gin</div>
+        <div class="drink-item">Sit at the bar first, move to back lounge when you've settled in</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-divider"><span>Sunday</span></div>
+
+  <!-- SOUTH SIDE -->
+  <div class="venue">
+    <div class="venue-header">
+      <div class="venue-meta">
+        <span class="venue-day">Sun · 11:00 AM</span>
+        <span class="venue-type">Brunch + Lunch</span>
+      </div>
+      <div class="venue-name">The South Side</div>
+      <div class="venue-tagline">The right way to end a weekend.</div>
+    </div>
+    <div class="venue-body">
+      <div class="vibe">Tremont neighbourhood favourite. Big windows, good light, weekend brunch that punches way above its price. Don't let the casual neighbourhood bar framing fool you — the food is legitimately excellent. The mini donut flight is somehow the most memorable thing on the menu.</div>
+      <div class="order-section">
+        <div class="order-section-label">Order These</div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Smash Burger</div>
+            <div class="order-note">One of the best in Cleveland</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-star">⭐ Star</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Nachos</div>
+            <div class="order-note">Legitimately great — not an afterthought</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-must">Get It</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Mini Donut Flight</div>
+            <div class="order-note">Described as "a spiritual experience" by multiple reviewers</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-star">⭐ Star</span></div>
+        </div>
+        <div class="order-row">
+          <div>
+            <div class="order-name">Biscuits and Gravy</div>
+            <div class="order-note">Best I've ever had, apparently</div>
+          </div>
+          <div class="order-tags"><span class="badge badge-must">Get It</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a href="index.html" class="nav-btn">← Home</a>
+    <a href="ref.html" class="nav-btn">Quick Ref →</a>
+  </div>
+
+</div>
+</body>
+</html>

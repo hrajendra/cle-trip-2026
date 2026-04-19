@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Saturday May 9 · CLE 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D5A3D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: #0F1A14; color: #E8F0EB; min-height: 100vh; padding-bottom: env(safe-area-inset-bottom, 32px); }
+
+.header {
+  background: linear-gradient(160deg, #1A3A20 0%, #0F2818 60%, #0F1A14 100%);
+  padding: 20px 20px 28px;
+  padding-top: max(20px, calc(16px + env(safe-area-inset-top)));
+}
+.back { display: inline-flex; align-items: center; gap: 6px; color: #A8D5B5; font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 14px; opacity: 0.85; }
+.back:active { opacity: 0.6; }
+.page-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #7BAF8A; opacity: 0.7; margin-bottom: 6px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #F0F7F2; line-height: 1.1; }
+.page-sub { font-size: 13px; color: #7BAF8A; margin-top: 6px; font-style: italic; }
+
+.timeline-strip { display: flex; gap: 6px; padding: 0 20px 20px; overflow-x: auto; scrollbar-width: none; }
+.timeline-strip::-webkit-scrollbar { display: none; }
+.t-chip { flex-shrink: 0; background: rgba(45,90,61,0.3); border: 1px solid #2D5A3D; border-radius: 20px; padding: 4px 12px; font-family: 'DM Mono', monospace; font-size: 11px; color: #A8D5B5; white-space: nowrap; }
+
+.content { padding: 0 16px 20px; max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+.event-card { background: #162A1D; border: 1px solid #2A4035; border-radius: 14px; overflow: hidden; }
+.event-header { padding: 14px 16px 12px; display: grid; grid-template-columns: 70px 1fr; gap: 12px; align-items: start; border-bottom: 1px solid #2A4035; }
+.event-time { font-family: 'DM Mono', monospace; font-size: 12px; color: #7BAF8A; padding-top: 3px; line-height: 1.4; }
+.event-type-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #A8D5B5; margin-bottom: 4px; }
+.event-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #F0F7F2; line-height: 1.2; }
+.event-addr { font-size: 12px; color: #7BAF8A; margin-top: 4px; }
+.event-addr a { color: #7BAF8A; text-decoration: none; }
+
+.event-body { padding: 14px 16px; }
+.event-desc { font-size: 13px; color: #C8D8CE; line-height: 1.65; margin-bottom: 12px; }
+
+.highlight-box { background: rgba(168,213,181,0.08); border-left: 3px solid #A8D5B5; border-radius: 0 8px 8px 0; padding: 10px 12px; margin-bottom: 12px; }
+.highlight-box p { font-size: 13px; color: #E8F0EB; line-height: 1.55; }
+.warn-box { background: rgba(200,169,110,0.08); border-left: 3px solid #C8A96E; border-radius: 0 8px 8px 0; padding: 10px 12px; margin-bottom: 12px; }
+.warn-box p { font-size: 13px; color: #E8F0EB; line-height: 1.55; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; border: 1px solid; }
+.tag-green { color: #A8D5B5; border-color: #2D5A3D; background: rgba(45,90,61,0.2); }
+.tag-amber { color: #C8A96E; border-color: #5A4A2A; background: rgba(90,74,42,0.2); }
+.tag-blue { color: #A8C5DF; border-color: #2A3A5A; background: rgba(42,58,90,0.2); }
+
+.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4A7A5A; margin-bottom: 8px; }
+.order-list { margin: 0; padding: 0; list-style: none; }
+.order-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(42,64,53,0.5); font-size: 13px; color: #C8D8CE; line-height: 1.5; }
+.order-item:last-child { border-bottom: none; }
+.order-item::before { content: '→'; color: #4A7A5A; flex-shrink: 0; padding-top: 1px; }
+
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.stat { background: rgba(45,90,61,0.2); border-radius: 8px; padding: 8px 10px; text-align: center; }
+.stat-val { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #A8D5B5; }
+.stat-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #7BAF8A; margin-top: 2px; }
+
+.nav-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+.nav-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: #162A1D; border: 1px solid #2A4035; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 600; color: #A8D5B5; }
+.nav-btn:active { background: #1E3A27; }
+.nav-btn.next { background: #2D5A3D; border-color: #3A7A4D; color: #F0F7F2; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back">← Home</a>
+  <div class="page-label">Day 2 · Saturday May 9</div>
+  <h1 class="page-title">The Full Day</h1>
+  <p class="page-sub">Hike → Watches → Beer → Gin. The anchor day.</p>
+</div>
+
+<div class="timeline-strip">
+  <div class="t-chip">8:30 Brandywine Falls</div>
+  <div class="t-chip">11:00 Teddy Baldassarre</div>
+  <div class="t-chip">1:00 Masthead Brewing</div>
+  <div class="t-chip">7:00 Griffin Gin Bar</div>
+</div>
+
+<div class="content">
+
+  <!-- BRANDYWINE -->
+  <div class="event-card">
+    <div class="event-header">
+      <div class="event-time">8:30 AM</div>
+      <div>
+        <div class="event-type-label">Hiking · CVNP</div>
+        <div class="event-name">Brandywine Falls</div>
+        <div class="event-addr"><a href="https://maps.google.com/?q=Brandywine+Falls+Trailhead+Northfield+OH" target="_blank">Northfield Rd, Cuyahoga Valley NP</a></div>
+      </div>
+    </div>
+    <div class="event-body">
+      <div class="stat-row">
+        <div class="stat"><div class="stat-val">1.7</div><div class="stat-lbl">Miles</div></div>
+        <div class="stat"><div class="stat-val">~90</div><div class="stat-lbl">Minutes</div></div>
+        <div class="stat"><div class="stat-val">Easy</div><div class="stat-lbl">Difficulty</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-green">Mostly shaded</span>
+        <span class="tag tag-green">Boardwalk to falls</span>
+        <span class="tag tag-blue">Restrooms at trailhead</span>
+      </div>
+      <div class="event-desc">Most popular waterfall in Ohio — a 65-foot cascade through a sandstone gorge. The boardwalk gives you a straight shot to the falls overlook, then the loop takes you through the gorge. Almost entirely tree-covered, beautiful in May.</div>
+      <div class="highlight-box"><p>🕗 Start at 8:30am sharp. This is the most crowded trail in the park — arriving early is the difference between a peaceful morning and a traffic jam.</p></div>
+      <div class="section-label">Trail Notes</div>
+      <ul class="order-list">
+        <li class="order-item">Park in the main lot — large, free, restrooms available</li>
+        <li class="order-item">Take the boardwalk first to the main falls viewpoint</li>
+        <li class="order-item">Continue the full loop for gorge views — adds 30 min, worth it</li>
+        <li class="order-item">Stairs going down to the lower overlook — manageable, great photo spot</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DRIVE NOTE -->
+  <div style="background:#162A1D; border:1px solid #2A4035; border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:10px;">
+    <span style="font-size:20px;">🚗</span>
+    <span style="font-size:13px; color:#7BAF8A;">Drive to Westlake ~35 min. Grab coffee en route — hit a drive-through or gas station on the way. Teddy opens at 11.</span>
+  </div>
+
+  <!-- TEDDY BALDASSARRE -->
+  <div class="event-card">
+    <div class="event-header">
+      <div class="event-time">11:00 AM</div>
+      <div>
+        <div class="event-type-label">Watch Boutique</div>
+        <div class="event-name">Teddy Baldassarre</div>
+        <div class="event-addr"><a href="https://maps.google.com/?q=167+Market+St+Westlake+OH" target="_blank">167 Market St, Westlake</a></div>
+      </div>
+    </div>
+    <div class="event-body">
+      <div class="tags">
+        <span class="tag tag-amber">Appointment required</span>
+        <span class="tag tag-green">Open Sat 11am–5pm</span>
+      </div>
+      <div class="event-desc">One of the most respected independent watch retailers in the US — known for curating a selection that larger dealers won't carry. Knowledgeable staff, no pressure. The kind of place where you can spend two hours just looking.</div>
+      <div class="warn-box"><p>📅 Book your appointment at teddybaldassarre.com before the trip. Saturday 11am slots are the first to go.</p></div>
+      <div class="section-label">Worth Knowing</div>
+      <ul class="order-list">
+        <li class="order-item">Carries Grand Seiko, Tudor, Longines, Christopher Ward, and independent brands</li>
+        <li class="order-item">The staff are enthusiasts — feel free to go deep on any piece</li>
+        <li class="order-item">No obligation to buy — it's a legitimate browsing experience</li>
+        <li class="order-item">Westlake is a quiet suburb — easy parking right on Market St</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MASTHEAD -->
+  <div class="event-card">
+    <div class="event-header">
+      <div class="event-time">1:00 PM</div>
+      <div>
+        <div class="event-type-label">Lunch + Beer</div>
+        <div class="event-name">Masthead Brewing Co.</div>
+        <div class="event-addr"><a href="https://maps.google.com/?q=1261+Superior+Ave+Cleveland+OH" target="_blank">1261 Superior Ave, Downtown Cleveland</a></div>
+      </div>
+    </div>
+    <div class="event-body">
+      <div class="tags">
+        <span class="tag tag-green">Open from 11:30am Sat</span>
+        <span class="tag tag-green">Order at bar</span>
+        <span class="tag tag-green">$</span>
+      </div>
+      <div class="event-desc">A converted warehouse taproom with some of the best pizza in Cleveland. Order at the bar, get a buzzer, grab a table. The kind of place you settle into for a couple of hours without realising. Beer flights are the move.</div>
+      <div class="section-label">Must Order</div>
+      <ul class="order-list">
+        <li class="order-item">Beer flight — ask what's seasonal, always something interesting on tap</li>
+        <li class="order-item">The pizza — personal-sized, wood-fired, some of the best in the city</li>
+        <li class="order-item">Soft pretzel — absurdly good, get it</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DOWNTIME NOTE -->
+  <div style="background:#162A1D; border:1px solid #2A4035; border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:10px;">
+    <span style="font-size:20px;">🛋️</span>
+    <span style="font-size:13px; color:#7BAF8A;">Afternoon free — head back to the Airbnb, rest up, get ready. Griffin is a late-evening spot. Leave around 6:30–7pm.</span>
+  </div>
+
+  <!-- GRIFFIN -->
+  <div class="event-card">
+    <div class="event-header">
+      <div class="event-time">7:00 PM</div>
+      <div>
+        <div class="event-type-label">Gin Bar · Saturday Night</div>
+        <div class="event-name">Griffin Cider House & Gin Bar</div>
+        <div class="event-addr"><a href="https://maps.google.com/?q=12401+Madison+Ave+Cleveland+OH" target="_blank">12401 Madison Ave, Lakewood</a></div>
+      </div>
+    </div>
+    <div class="event-body">
+      <div class="tags">
+        <span class="tag tag-green">Craft cocktails</span>
+        <span class="tag tag-green">Gin flights</span>
+        <span class="tag tag-blue">~15 min from Masthead</span>
+      </div>
+      <div class="event-desc">Lakewood neighbourhood pub with a serious gin program and equally good cider. The back room has a lounge feel — couches, dim lighting, the kind of place you close out. Bartenders will tailor a flight to your taste profile without hesitation.</div>
+      <div class="section-label">How to Approach It</div>
+      <ul class="order-list">
+        <li class="order-item">Tell the bartender what gins you know — they'll go from there</li>
+        <li class="order-item">Ask about the cider flight too — worth doing alongside the gin</li>
+        <li class="order-item">Sit at the bar first, move to the back lounge later if there's space</li>
+        <li class="order-item">Plan a rideshare home — Lakewood to Westlake is 10 min</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a href="day1.html" class="nav-btn">← Friday</a>
+    <a href="day3.html" class="nav-btn next">Sunday →</a>
+  </div>
+
+</div>
+</body>
+</html>

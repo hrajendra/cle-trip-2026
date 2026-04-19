@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Quick Reference · CLE 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D5A3D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: #0F1A14; color: #E8F0EB; min-height: 100vh; padding-bottom: env(safe-area-inset-bottom, 32px); }
+
+.header {
+  background: linear-gradient(160deg, #0A1A2A 0%, #081018 60%, #0F1A14 100%);
+  padding: 20px 20px 24px;
+  padding-top: max(20px, calc(16px + env(safe-area-inset-top)));
+}
+.back { display: inline-flex; align-items: center; gap: 6px; color: #A8C5DF; font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 14px; opacity: 0.85; }
+.page-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #A8C5DF; opacity: 0.7; margin-bottom: 6px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #EAF2F8; line-height: 1.1; }
+.page-sub { font-size: 13px; color: #7A9FBF; margin-top: 6px; font-style: italic; }
+
+.content { padding: 20px 16px; max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+
+.ref-section { background: #162A1D; border: 1px solid #2A4035; border-radius: 14px; overflow: hidden; }
+.ref-header { padding: 12px 16px; border-bottom: 1px solid #2A4035; display: flex; align-items: center; gap: 10px; }
+.ref-icon { font-size: 18px; }
+.ref-title { font-size: 13px; font-weight: 700; color: #A8C5DF; letter-spacing: 0.02em; }
+
+.ref-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid rgba(42,64,53,0.5); gap: 12px; }
+.ref-row:last-child { border-bottom: none; }
+.ref-label { font-size: 12px; font-weight: 600; color: #7BAF8A; min-width: 110px; }
+.ref-val { font-size: 13px; color: #E8F0EB; text-align: right; line-height: 1.4; }
+.ref-val a { color: #A8D5B5; text-decoration: none; font-weight: 500; }
+.ref-val a:active { opacity: 0.7; }
+
+/* EMERGENCY SECTION — stands out */
+.emergency { background: rgba(224,100,100,0.08); border: 1px solid rgba(224,100,100,0.2); border-radius: 14px; overflow: hidden; }
+.emergency .ref-header { border-bottom-color: rgba(224,100,100,0.2); }
+.emergency .ref-title { color: #E08080; }
+.emergency .ref-label { color: #BF8080; }
+.emergency .ref-val a { color: #E09090; font-size: 16px; font-weight: 700; }
+
+/* ADDRESS BLOCK */
+.addr-block { padding: 14px 16px; }
+.addr-name { font-size: 14px; font-weight: 700; color: #E8F0EB; margin-bottom: 4px; }
+.addr-text { font-size: 13px; color: #C8D8CE; line-height: 1.6; }
+.addr-text a { color: #A8D5B5; text-decoration: none; }
+
+/* DRIVE TIMES */
+.drive-row { display: flex; align-items: center; gap: 0; padding: 10px 16px; border-bottom: 1px solid rgba(42,64,53,0.5); }
+.drive-row:last-child { border-bottom: none; }
+.drive-from { font-size: 12px; color: #C8D8CE; flex: 1; }
+.drive-arrow { font-family: 'DM Mono', monospace; font-size: 11px; color: #4A7A5A; padding: 0 8px; }
+.drive-to { font-size: 12px; color: #C8D8CE; flex: 1; text-align: right; }
+.drive-time { font-family: 'DM Mono', monospace; font-size: 12px; color: #A8D5B5; min-width: 40px; text-align: right; font-weight: 500; }
+
+.nav-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+.nav-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: #162A1D; border: 1px solid #2A4035; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 600; color: #A8D5B5; }
+.nav-btn:active { background: #1E3A27; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back">← Home</a>
+  <div class="page-label">At a Glance</div>
+  <h1 class="page-title">Quick<br>Reference</h1>
+  <p class="page-sub">Everything you need in one place, offline.</p>
+</div>
+
+<div class="content">
+
+  <!-- EMERGENCY -->
+  <div class="ref-section emergency">
+    <div class="ref-header">
+      <span class="ref-icon">🚨</span>
+      <span class="ref-title">Emergency Numbers</span>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Emergency</div>
+      <div class="ref-val"><a href="tel:911">911</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Non-Emergency Police</div>
+      <div class="ref-val"><a href="tel:+12165220000">(216) 522-0000</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Poison Control</div>
+      <div class="ref-val"><a href="tel:18002221222">1-800-222-1222</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Nearest Hospital</div>
+      <div class="ref-val">Cleveland Clinic Main Campus<br><a href="tel:+12164449800">(216) 444-9800</a></div>
+    </div>
+  </div>
+
+  <!-- STAY -->
+  <div class="ref-section">
+    <div class="ref-header">
+      <span class="ref-icon">🏠</span>
+      <span class="ref-title">Where We're Staying</span>
+    </div>
+    <div class="addr-block">
+      <div class="addr-name">Airbnb — Westlake / Bay Village</div>
+      <div class="addr-text">Update this once booked with the exact address and host phone number. Screenshots of the Airbnb confirmation page work offline.</div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Check-in</div>
+      <div class="ref-val">Fri May 8 — after 3pm (confirm with host)</div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Check-out</div>
+      <div class="ref-val">Sun May 10 — by 11am (confirm with host)</div>
+    </div>
+  </div>
+
+  <!-- AIRPORT -->
+  <div class="ref-section">
+    <div class="ref-header">
+      <span class="ref-icon">✈️</span>
+      <span class="ref-title">Airport</span>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Airport</div>
+      <div class="ref-val">Cleveland Hopkins International (CLE)</div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Phone</div>
+      <div class="ref-val"><a href="tel:+12162657000">(216) 265-7000</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Address</div>
+      <div class="ref-val"><a href="https://maps.google.com/?q=5300+Riverside+Dr+Cleveland+OH+44135" target="_blank">5300 Riverside Dr, Cleveland</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Rental Return</div>
+      <div class="ref-val">On-site — signs from Departures level. Allow 20 min.</div>
+    </div>
+  </div>
+
+  <!-- VENUE CONTACTS -->
+  <div class="ref-section">
+    <div class="ref-header">
+      <span class="ref-icon">📞</span>
+      <span class="ref-title">Venue Contacts</span>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Soho Chicken</div>
+      <div class="ref-val"><a href="tel:+12162989090">(216) 298-9090</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Teddy Baldassarre</div>
+      <div class="ref-val"><a href="https://teddybaldassarre.com" target="_blank">teddybaldassarre.com</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Masthead Brewing</div>
+      <div class="ref-val"><a href="tel:+12162066176">(216) 206-6176</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">Griffin Cider/Gin</div>
+      <div class="ref-val"><a href="tel:+12167675444">(216) 767-5444</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">The Whiskey Bar</div>
+      <div class="ref-val"><a href="tel:+12163211930">(216) 321-1930</a></div>
+    </div>
+    <div class="ref-row">
+      <div class="ref-label">The South Side</div>
+      <div class="ref-val"><a href="tel:+12169372288">(216) 937-2288</a></div>
+    </div>
+  </div>
+
+  <!-- DRIVE TIMES -->
+  <div class="ref-section">
+    <div class="ref-header">
+      <span class="ref-icon">🚗</span>
+      <span class="ref-title">Drive Times</span>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">CLE Airport</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">Westlake Airbnb</div>
+      <div class="drive-time">20 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Westlake</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">Soho (Ohio City)</div>
+      <div class="drive-time">20 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Soho</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">The Whiskey Bar</div>
+      <div class="drive-time">15 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Westlake</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">Brandywine Falls</div>
+      <div class="drive-time">35 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Brandywine</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">Westlake (Teddy)</div>
+      <div class="drive-time">35 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Westlake</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">Masthead Brewing</div>
+      <div class="drive-time">20 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Masthead</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">Griffin (Lakewood)</div>
+      <div class="drive-time">15 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Westlake</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">Ledges Trailhead</div>
+      <div class="drive-time">40 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">Ledges</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">The South Side</div>
+      <div class="drive-time">30 min</div>
+    </div>
+    <div class="drive-row">
+      <div class="drive-from">The South Side</div>
+      <div class="drive-arrow">→</div>
+      <div class="drive-to">CLE Airport</div>
+      <div class="drive-time">15 min</div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a href="food.html" class="nav-btn">← Food Guide</a>
+    <a href="index.html" class="nav-btn">Home ↑</a>
+  </div>
+
+</div>
+</body>
+</html>

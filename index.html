@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CLE Trip 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D5A3D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CLE Trip">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: #0F1A14; color: #E8F0EB; min-height: 100vh; display: flex; flex-direction: column; padding-bottom: env(safe-area-inset-bottom, 24px); }
+
+/* HERO */
+.hero {
+  background: linear-gradient(160deg, #2D5A3D 0%, #1E3D2A 55%, #0F1A14 100%);
+  padding: 28px 24px 24px;
+  padding-top: max(28px, calc(20px + env(safe-area-inset-top)));
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M0 0h80v80H0z'/%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.hero-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #7BAF8A; margin-bottom: 8px; position: relative; }
+.hero-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; line-height: 1.1; color: #F0F7F2; position: relative; }
+.hero-title em { font-style: italic; color: #A8D5B5; }
+.hero-dates { font-family: 'DM Mono', monospace; font-size: 12px; color: #7BAF8A; margin-top: 6px; position: relative; letter-spacing: 0.08em; }
+
+/* COUNTDOWN */
+.countdown { display: flex; align-items: center; gap: 8px; margin-top: 20px; position: relative; }
+.cd-unit { display: flex; flex-direction: column; align-items: center; }
+.cd-num {
+  font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 6px 10px; min-width: 52px; text-align: center;
+  color: #F0F7F2; line-height: 1;
+}
+.cd-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #7BAF8A; margin-top: 5px; }
+.cd-sep { font-size: 24px; color: rgba(255,255,255,0.2); padding-bottom: 18px; }
+.cd-msg { font-size: 13px; color: #A8D5B5; margin-top: 10px; font-weight: 500; position: relative; }
+
+.share-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px; padding: 6px 14px; color: #E8F0EB; font-size: 12px;
+  font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  margin-top: 14px; position: relative;
+}
+
+/* CARDS */
+.cards { padding: 16px 16px 8px; display: flex; flex-direction: column; gap: 10px; max-width: 520px; margin: 0 auto; width: 100%; }
+
+.card {
+  border-radius: 14px; padding: 18px 44px 18px 20px;
+  text-decoration: none; display: flex; align-items: center; gap: 16px;
+  position: relative; overflow: hidden; transition: transform 0.15s, opacity 0.15s;
+  background: #162A1D; border: 1px solid #2A4035;
+}
+.card:active { transform: scale(0.98); opacity: 0.9; }
+.card::after { content: '›'; position: absolute; right: 16px; font-size: 22px; color: #4A7A5A; }
+.card-icon { font-size: 36px; flex-shrink: 0; }
+.card-title { font-size: 16px; font-weight: 700; color: #F0F7F2; margin-bottom: 3px; }
+.card-sub { font-size: 12px; color: #7BAF8A; line-height: 1.4; }
+
+.card-prep  { border-left: 4px solid #C8A96E; }
+.card-prep .card-title { color: #C8A96E; }
+
+.card-day1  { border-left: 4px solid #7BAF8A; }
+.card-day1 .card-title { color: #A8D5B5; }
+
+.card-day2  { border-left: 4px solid #A8D5B5; }
+.card-day2 .card-title { color: #A8D5B5; }
+
+.card-day3  { border-left: 4px solid #7BAF8A; }
+.card-day3 .card-title { color: #A8D5B5; }
+
+.card-food  { border-left: 4px solid #E0956A; }
+.card-food .card-title { color: #E0956A; }
+
+.card-ref   { border-left: 4px solid #7A9FBF; }
+.card-ref .card-title { color: #A8C5DF; }
+
+/* QUICK REF STRIP */
+.quick-strip {
+  margin: 8px 16px 16px;
+  background: #162A1D; border: 1px solid #2A4035; border-radius: 14px;
+  padding: 16px;
+  max-width: 520px; margin-left: auto; margin-right: auto; width: calc(100% - 32px);
+}
+.quick-strip-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #7BAF8A; margin-bottom: 12px; }
+.quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.quick-item { }
+.quick-item-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #7BAF8A; margin-bottom: 3px; }
+.quick-item-val { font-size: 13px; color: #E8F0EB; line-height: 1.5; }
+.quick-item-val a { color: #A8D5B5; text-decoration: none; }
+
+.tip { margin: 0 16px 24px; background: #162A1D; border: 1px solid #2A4035; border-radius: 12px; padding: 12px 16px; font-size: 12px; color: #7BAF8A; line-height: 1.5; text-align: center; max-width: 520px; margin-left: auto; margin-right: auto; width: calc(100% - 32px); }
+
+.toast { position: fixed; bottom: max(28px, env(safe-area-inset-bottom, 28px)); left: 50%; transform: translateX(-50%) translateY(20px); background: #F0F7F2; color: #0F1A14; font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 20px; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; z-index: 999; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Harsha & Preetham · Brothers Weekend</div>
+  <h1 class="hero-title">Cleveland,<br><em>Ohio</em></h1>
+  <p class="hero-dates">MAY 8 – 10 · 2026</p>
+  <div class="countdown" id="countdown">
+    <div class="cd-unit"><div class="cd-num" id="cd-d">--</div><div class="cd-label">Days</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-h">--</div><div class="cd-label">Hours</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-m">--</div><div class="cd-label">Mins</div></div>
+  </div>
+  <p class="cd-msg" id="cd-msg">Until the weekend begins ✈️</p>
+  <button class="share-btn" onclick="shareLink('https://hrajendra.github.io/cle-trip-2026/','CLE Trip 2026')">📤 Share this app</button>
+</div>
+
+<div class="cards">
+  <a href="prep.html" class="card card-prep">
+    <div class="card-icon">📋</div>
+    <div>
+      <div class="card-title">Pre-Trip Prep</div>
+      <div class="card-sub">Checklist, packing list & arrival instructions</div>
+    </div>
+  </a>
+  <a href="day1.html" class="card card-day1">
+    <div class="card-icon">🥃</div>
+    <div>
+      <div class="card-title">Friday — May 8</div>
+      <div class="card-sub">Arrive · Soho Chicken · The Whiskey Bar</div>
+    </div>
+  </a>
+  <a href="day2.html" class="card card-day2">
+    <div class="card-icon">🏔️</div>
+    <div>
+      <div class="card-title">Saturday — May 9</div>
+      <div class="card-sub">Brandywine Falls · Teddy Baldassarre · Masthead · Griffin</div>
+    </div>
+  </a>
+  <a href="day3.html" class="card card-day3">
+    <div class="card-icon">🥾</div>
+    <div>
+      <div class="card-title">Sunday — May 10</div>
+      <div class="card-sub">Ledges Trail · The South Side · Fly home</div>
+    </div>
+  </a>
+  <a href="food.html" class="card card-food">
+    <div class="card-icon">🍽️</div>
+    <div>
+      <div class="card-title">Food & Drink Guide</div>
+      <div class="card-sub">Must-orders at every stop, scotch & gin picks</div>
+    </div>
+  </a>
+  <a href="ref.html" class="card card-ref">
+    <div class="card-icon">📞</div>
+    <div>
+      <div class="card-title">Quick Reference</div>
+      <div class="card-sub">Emergency numbers, Airbnb, airport, contacts</div>
+    </div>
+  </a>
+</div>
+
+<div class="quick-strip">
+  <div class="quick-strip-label">At a glance</div>
+  <div class="quick-grid">
+    <div class="quick-item">
+      <div class="quick-item-title">Stay</div>
+      <div class="quick-item-val">Westlake / Bay Village Airbnb</div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-item-title">Airport</div>
+      <div class="quick-item-val">CLE — Cleveland Hopkins<br><a href="tel:+12162657000">(216) 265-7000</a></div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-item-title">Emergency</div>
+      <div class="quick-item-val"><a href="tel:911">911</a></div>
+    </div>
+    <div class="quick-item">
+      <div class="quick-item-title">Teddy Appt</div>
+      <div class="quick-item-val">Sat 11 AM<br>167 Market St, Westlake</div>
+    </div>
+  </div>
+</div>
+
+<div class="tip">📲 Add to Home Screen — open in Safari, tap Share → "Add to Home Screen" to install as an app. All pages work offline after first visit.</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function shareLink(url, title) {
+  if (navigator.share) {
+    navigator.share({ title, url }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).then(() => showToast('Link copied ✓')).catch(() => showToast('Copy: ' + url));
+  }
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+  navigator.serviceWorker.addEventListener('message', e => {
+    if (e.data && e.data.type === 'SW_UPDATED') window.location.reload();
+  });
+}
+
+(function() {
+  const TARGET = new Date('2026-05-08T17:00:00-04:00');
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    const diff = TARGET - new Date();
+    const cd = document.getElementById('countdown');
+    const msg = document.getElementById('cd-msg');
+    if (!cd) return;
+    if (diff <= 0) {
+      cd.style.display = 'none';
+      msg.textContent = "We're in Cleveland! 🍻";
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    if (days > 0) {
+      document.getElementById('cd-d').textContent = days;
+      document.getElementById('cd-h').textContent = pad(hrs);
+      document.getElementById('cd-m').textContent = pad(mins);
+      msg.textContent = days === 1 ? 'Tomorrow! 🥃' : 'Until the weekend begins ✈️';
+    } else {
+      document.getElementById('cd-d').textContent = pad(hrs);
+      document.getElementById('cd-h').textContent = pad(mins);
+      document.getElementById('cd-m').textContent = pad(secs);
+      document.querySelectorAll('.cd-label')[0].textContent = 'Hours';
+      document.querySelectorAll('.cd-label')[1].textContent = 'Mins';
+      document.querySelectorAll('.cd-label')[2].textContent = 'Secs';
+      msg.textContent = 'Almost time! 🥃';
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>

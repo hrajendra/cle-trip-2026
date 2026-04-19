@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pre-Trip Prep · CLE 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D5A3D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: #0F1A14; color: #E8F0EB; min-height: 100vh; padding-bottom: env(safe-area-inset-bottom, 32px); }
+
+.header {
+  background: linear-gradient(160deg, #3A2A0A 0%, #2A1E08 60%, #0F1A14 100%);
+  padding: 20px 20px 24px;
+  padding-top: max(20px, calc(16px + env(safe-area-inset-top)));
+}
+.back { display: inline-flex; align-items: center; gap: 6px; color: #C8A96E; font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 14px; opacity: 0.85; }
+.back:active { opacity: 0.6; }
+.page-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #C8A96E; opacity: 0.7; margin-bottom: 6px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #F5EDD5; line-height: 1.1; }
+
+.content { padding: 20px 16px; max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+.section { background: #162A1D; border: 1px solid #2A4035; border-radius: 14px; overflow: hidden; }
+.section-header { padding: 14px 16px 10px; border-bottom: 1px solid #2A4035; display: flex; align-items: center; gap: 10px; }
+.section-icon { font-size: 20px; }
+.section-title { font-size: 14px; font-weight: 700; color: #C8A96E; letter-spacing: 0.02em; }
+
+/* CHECKLIST */
+.checklist { padding: 8px 0; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-bottom: 1px solid rgba(42,64,53,0.6); cursor: pointer;
+  transition: background 0.1s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-item:active { background: rgba(255,255,255,0.03); }
+.check-box {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid #4A7A5A; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.check-box.done { background: #2D5A3D; border-color: #7BAF8A; }
+.check-box.done::after { content: '✓'; color: #A8D5B5; font-size: 13px; font-weight: 700; }
+.check-label { flex: 1; }
+.check-main { font-size: 14px; color: #E8F0EB; line-height: 1.4; }
+.check-main.done { text-decoration: line-through; opacity: 0.45; }
+.check-sub { font-size: 12px; color: #7BAF8A; margin-top: 3px; line-height: 1.4; }
+.check-urgent { display: inline-block; background: rgba(200,169,110,0.15); color: #C8A96E; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+
+/* PACKING */
+.pack-grid { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.pack-col-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #7BAF8A; padding: 6px 0 8px; grid-column: span 1; }
+.pack-item { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(42,64,53,0.5); font-size: 13px; color: #E8F0EB; cursor: pointer; }
+.pack-item:last-of-type { border-bottom: none; }
+.pack-check { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid #4A7A5A; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+.pack-check.done { background: #2D5A3D; border-color: #7BAF8A; }
+.pack-check.done::after { content: '✓'; color: #A8D5B5; font-size: 11px; font-weight: 700; }
+.pack-text.done { text-decoration: line-through; opacity: 0.4; }
+.pack-full { grid-column: span 2; }
+
+/* INFO BLOCKS */
+.info-block { padding: 14px 16px; border-bottom: 1px solid rgba(42,64,53,0.6); }
+.info-block:last-child { border-bottom: none; }
+.info-block-title { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #C8A96E; margin-bottom: 8px; }
+.info-block p { font-size: 13px; color: #C8D8CE; line-height: 1.65; margin-bottom: 6px; }
+.info-block p:last-child { margin-bottom: 0; }
+.info-block strong { color: #E8F0EB; font-weight: 600; }
+.info-block a { color: #A8D5B5; text-decoration: none; }
+.highlight { background: rgba(200,169,110,0.1); border-left: 3px solid #C8A96E; border-radius: 0 8px 8px 0; padding: 10px 12px; margin-top: 8px; font-size: 13px; color: #E8F0EB; line-height: 1.55; }
+
+/* SLEEP SCHEDULE */
+.sleep-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 1px solid rgba(42,64,53,0.5); }
+.sleep-row:last-child { border-bottom: none; }
+.sleep-day { font-family: 'DM Mono', monospace; font-size: 11px; color: #7BAF8A; min-width: 60px; padding-top: 2px; }
+.sleep-detail { font-size: 13px; color: #E8F0EB; line-height: 1.5; }
+.sleep-tip { font-size: 12px; color: #7BAF8A; margin-top: 3px; }
+
+/* PROGRESS */
+.progress-bar-wrap { padding: 10px 16px 14px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: #7BAF8A; margin-bottom: 6px; }
+.progress-bar { height: 6px; background: #2A4035; border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #2D5A3D, #A8D5B5); border-radius: 3px; transition: width 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back">← Home</a>
+  <div class="page-label">Before You Go</div>
+  <h1 class="page-title">Pre-Trip Prep</h1>
+</div>
+
+<div class="content">
+
+  <!-- BOOKING CHECKLIST -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">✅</span>
+      <span class="section-title">Booking Checklist</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label"><span id="prog-label">0 of 6 done</span><span id="prog-pct">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div class="checklist" id="checklist">
+      <div class="check-item" data-id="soho" onclick="toggle(this)">
+        <div class="check-box" id="box-soho"></div>
+        <div class="check-label">
+          <div class="check-main" id="lbl-soho">Book Soho Chicken + Whiskey <span class="check-urgent">urgent</span></div>
+          <div class="check-sub">Friday dinner — fills fast. sohocleveland.com or call (216) 298-9090. Request for Fri May 8, ~6:30pm.</div>
+        </div>
+      </div>
+      <div class="check-item" data-id="teddy" onclick="toggle(this)">
+        <div class="check-box" id="box-teddy"></div>
+        <div class="check-label">
+          <div class="check-main" id="lbl-teddy">Book Teddy Baldassarre appointment <span class="check-urgent">urgent</span></div>
+          <div class="check-sub">teddybaldassarre.com — Sat May 9, 11am slot. Saturday appointments go fast.</div>
+        </div>
+      </div>
+      <div class="check-item" data-id="airbnb" onclick="toggle(this)">
+        <div class="check-box" id="box-airbnb"></div>
+        <div class="check-label">
+          <div class="check-main" id="lbl-airbnb">Book Airbnb in Westlake or Bay Village</div>
+          <div class="check-sub">Search "Westlake OH" or "Bay Village OH". Need 2 beds, May 8–10. Budget $150–250/night.</div>
+        </div>
+      </div>
+      <div class="check-item" data-id="flights" onclick="toggle(this)">
+        <div class="check-box" id="box-flights"></div>
+        <div class="check-label">
+          <div class="check-main" id="lbl-flights">Book flights — SFO → CLE (both)</div>
+          <div class="check-sub">Aim for Fri May 8 landing by 4pm ET. Return Sun May 10, depart 3pm+ for comfortable margins.</div>
+        </div>
+      </div>
+      <div class="check-item" data-id="car" onclick="toggle(this)">
+        <div class="check-box" id="box-car"></div>
+        <div class="check-label">
+          <div class="check-main" id="lbl-car">Rental car at CLE</div>
+          <div class="check-sub">Need it for the full weekend. Westlake ↔ Cuyahoga = 35 min drive. Book in advance for best rates.</div>
+        </div>
+      </div>
+      <div class="check-item" data-id="share" onclick="toggle(this)">
+        <div class="check-box" id="box-share"></div>
+        <div class="check-label">
+          <div class="check-main" id="lbl-share">Share this app with Preetham</div>
+          <div class="check-sub">Send link: hrajendra.github.io/cle-trip-2026 — works on his phone offline after first visit.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PACKING LIST -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🎒</span>
+      <span class="section-title">Packing List</span>
+    </div>
+    <div class="pack-grid" id="packlist">
+      <div class="pack-col-title" style="grid-column:span 2">Clothing</div>
+      <div class="pack-item pack-full" data-pid="p0" onclick="ptoggle(this)"><div class="pack-check" id="pc-p0"></div><span class="pack-text" id="pt-p0">Hiking shoes (trail-ready, broken in)</span></div>
+      <div class="pack-item pack-full" data-pid="p1" onclick="ptoggle(this)"><div class="pack-check" id="pc-p1"></div><span class="pack-text" id="pt-p1">Casual layers — May in CLE is 55–70°F</span></div>
+      <div class="pack-item" data-pid="p2" onclick="ptoggle(this)"><div class="pack-check" id="pc-p2"></div><span class="pack-text" id="pt-p2">Rain jacket</span></div>
+      <div class="pack-item" data-pid="p3" onclick="ptoggle(this)"><div class="pack-check" id="pc-p3"></div><span class="pack-text" id="pt-p3">One dinner-casual outfit</span></div>
+      <div class="pack-item" data-pid="p4" onclick="ptoggle(this)"><div class="pack-check" id="pc-p4"></div><span class="pack-text" id="pt-p4">Socks (extra hiking pairs)</span></div>
+      <div class="pack-item" data-pid="p5" onclick="ptoggle(this)"><div class="pack-check" id="pc-p5"></div><span class="pack-text" id="pt-p5">Comfortable walking shoes</span></div>
+
+      <div class="pack-col-title" style="grid-column:span 2; padding-top: 12px;">Gear & Tech</div>
+      <div class="pack-item" data-pid="p6" onclick="ptoggle(this)"><div class="pack-check" id="pc-p6"></div><span class="pack-text" id="pt-p6">Phone + charger</span></div>
+      <div class="pack-item" data-pid="p7" onclick="ptoggle(this)"><div class="pack-check" id="pc-p7"></div><span class="pack-text" id="pt-p7">Portable battery pack</span></div>
+      <div class="pack-item" data-pid="p8" onclick="ptoggle(this)"><div class="pack-check" id="pc-p8"></div><span class="pack-text" id="pt-p8">Earbuds / headphones</span></div>
+      <div class="pack-item" data-pid="p9" onclick="ptoggle(this)"><div class="pack-check" id="pc-p9"></div><span class="pack-text" id="pt-p9">Camera (optional)</span></div>
+      <div class="pack-item" data-pid="p10" onclick="ptoggle(this)"><div class="pack-check" id="pc-p10"></div><span class="pack-text" id="pt-p10">Daypack / small bag for hikes</span></div>
+      <div class="pack-item" data-pid="p11" onclick="ptoggle(this)"><div class="pack-check" id="pc-p11"></div><span class="pack-text" id="pt-p11">Sunglasses</span></div>
+
+      <div class="pack-col-title" style="grid-column:span 2; padding-top: 12px;">Essentials</div>
+      <div class="pack-item" data-pid="p12" onclick="ptoggle(this)"><div class="pack-check" id="pc-p12"></div><span class="pack-text" id="pt-p12">ID + credit card</span></div>
+      <div class="pack-item" data-pid="p13" onclick="ptoggle(this)"><div class="pack-check" id="pc-p13"></div><span class="pack-text" id="pt-p13">Cash (~$100 for tips/parking)</span></div>
+      <div class="pack-item" data-pid="p14" onclick="ptoggle(this)"><div class="pack-check" id="pc-p14"></div><span class="pack-text" id="pt-p14">Sunscreen & chapstick</span></div>
+      <div class="pack-item" data-pid="p15" onclick="ptoggle(this)"><div class="pack-check" id="pc-p15"></div><span class="pack-text" id="pt-p15">Ibuprofen / basic meds</span></div>
+      <div class="pack-item" data-pid="p16" onclick="ptoggle(this)"><div class="pack-check" id="pc-p16"></div><span class="pack-text" id="pt-p16">Water bottle (refillable)</span></div>
+      <div class="pack-item" data-pid="p17" onclick="ptoggle(this)"><div class="pack-check" id="pc-p17"></div><span class="pack-text" id="pt-p17">Trail snacks for hikes</span></div>
+    </div>
+  </div>
+
+  <!-- ARRIVAL INSTRUCTIONS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">✈️</span>
+      <span class="section-title">Arrival — Friday May 8</span>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">At CLE Airport</div>
+      <p>Land at <strong>Cleveland Hopkins (CLE)</strong>. Pick up the rental car — it's all one terminal, easy to navigate. Takes 15–20 min from wheels-down to car.</p>
+      <p>Drive to the Airbnb to drop bags — <strong>Westlake is ~20 min west</strong> of the airport on I-90.</p>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">Getting to Soho Chicken + Whiskey</div>
+      <p><strong>4211 Lorain Ave, Ohio City</strong> — about 20 min east from Westlake. Park on Lorain Ave or nearby side streets (usually free evenings).</p>
+      <div class="highlight">📌 Reservation is essential. Confirm the booking a day before as a reminder.</div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">After Dinner → The Whiskey Bar</div>
+      <p><strong>2767 Euclid Heights Blvd, Cleveland Heights</strong> — 15 min from Soho. Open until 2am Fridays. This is the scotch night — The Whiskey Bar is <strong>closed Sundays</strong>, so Friday is the right call.</p>
+      <p>Plan a rideshare (Uber/Lyft) back to the Airbnb from here — don't drive after a scotch flight.</p>
+    </div>
+  </div>
+
+  <!-- SLEEP SHIFT (optional, for jet lag) -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🌙</span>
+      <span class="section-title">Jet Lag Tip (SFO → CLE)</span>
+    </div>
+    <div class="sleep-row">
+      <div class="sleep-day">Wed–Thu</div>
+      <div class="sleep-detail">
+        Try going to bed 1–2 hrs earlier than usual. 3-hour time difference (ET is ahead).
+        <div class="sleep-tip">Goal: feel sharp for 8:30am Saturday hike start.</div>
+      </div>
+    </div>
+    <div class="sleep-row">
+      <div class="sleep-day">Friday</div>
+      <div class="sleep-detail">
+        Early flight recommended — arrive by 4pm gives buffer before dinner at 6:30.
+        <div class="sleep-tip">Stay up until 11pm ET to lock in the time zone.</div>
+      </div>
+    </div>
+    <div class="sleep-row">
+      <div class="sleep-day">Saturday</div>
+      <div class="sleep-detail">
+        Alarm at 7:30am. Brandywine Falls starts at 8:30 — early start beats the crowds.
+        <div class="sleep-tip">Brew coffee before heading out, there's no good café near the trailhead.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Checklist persistence
+const CHECKS = ['soho','teddy','airbnb','flights','car','share'];
+const PCHECKS = Array.from({length:18}, (_,i) => 'p'+i);
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('cle-prep') || '{}'); } catch(e) { return {}; }
+}
+function saveState(state) {
+  try { localStorage.setItem('cle-prep', JSON.stringify(state)); } catch(e) {}
+}
+
+let state = loadState();
+
+function toggle(el) {
+  const id = el.dataset.id;
+  state[id] = !state[id];
+  saveState(state);
+  render();
+}
+function ptoggle(el) {
+  const id = el.dataset.pid;
+  state[id] = !state[id];
+  saveState(state);
+  prender();
+}
+
+function render() {
+  let done = 0;
+  CHECKS.forEach(id => {
+    const box = document.getElementById('box-'+id);
+    const lbl = document.getElementById('lbl-'+id);
+    if (!box) return;
+    if (state[id]) { box.classList.add('done'); lbl.classList.add('done'); done++; }
+    else { box.classList.remove('done'); lbl.classList.remove('done'); }
+  });
+  const pct = Math.round(done/CHECKS.length*100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = done+' of '+CHECKS.length+' done';
+  document.getElementById('prog-pct').textContent = pct+'%';
+}
+
+function prender() {
+  PCHECKS.forEach(id => {
+    const pc = document.getElementById('pc-'+id);
+    const pt = document.getElementById('pt-'+id);
+    if (!pc) return;
+    if (state[id]) { pc.classList.add('done'); pt.classList.add('done'); }
+    else { pc.classList.remove('done'); pt.classList.remove('done'); }
+  });
+}
+
+render();
+prender();
+</script>
+</body>
+</html>

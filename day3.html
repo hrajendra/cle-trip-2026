@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sunday May 10 · CLE 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D5A3D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: #0F1A14; color: #E8F0EB; min-height: 100vh; padding-bottom: env(safe-area-inset-bottom, 32px); }
+
+.header {
+  background: linear-gradient(160deg, #2A1A0A 0%, #1A0F08 60%, #0F1A14 100%);
+  padding: 20px 20px 28px;
+  padding-top: max(20px, calc(16px + env(safe-area-inset-top)));
+}
+.back { display: inline-flex; align-items: center; gap: 6px; color: #A8D5B5; font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 14px; opacity: 0.85; }
+.back:active { opacity: 0.6; }
+.page-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #7BAF8A; opacity: 0.7; margin-bottom: 6px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #F0F7F2; line-height: 1.1; }
+.page-sub { font-size: 13px; color: #7BAF8A; margin-top: 6px; font-style: italic; }
+
+.timeline-strip { display: flex; gap: 6px; padding: 0 20px 20px; overflow-x: auto; scrollbar-width: none; }
+.timeline-strip::-webkit-scrollbar { display: none; }
+.t-chip { flex-shrink: 0; background: rgba(45,90,61,0.3); border: 1px solid #2D5A3D; border-radius: 20px; padding: 4px 12px; font-family: 'DM Mono', monospace; font-size: 11px; color: #A8D5B5; white-space: nowrap; }
+
+.content { padding: 0 16px 20px; max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+.event-card { background: #162A1D; border: 1px solid #2A4035; border-radius: 14px; overflow: hidden; }
+.event-header { padding: 14px 16px 12px; display: grid; grid-template-columns: 70px 1fr; gap: 12px; align-items: start; border-bottom: 1px solid #2A4035; }
+.event-time { font-family: 'DM Mono', monospace; font-size: 12px; color: #7BAF8A; padding-top: 3px; line-height: 1.4; }
+.event-type-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #A8D5B5; margin-bottom: 4px; }
+.event-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #F0F7F2; line-height: 1.2; }
+.event-addr { font-size: 12px; color: #7BAF8A; margin-top: 4px; }
+.event-addr a { color: #7BAF8A; text-decoration: none; }
+
+.event-body { padding: 14px 16px; }
+.event-desc { font-size: 13px; color: #C8D8CE; line-height: 1.65; margin-bottom: 12px; }
+
+.highlight-box { background: rgba(168,213,181,0.08); border-left: 3px solid #A8D5B5; border-radius: 0 8px 8px 0; padding: 10px 12px; margin-bottom: 12px; }
+.highlight-box p { font-size: 13px; color: #E8F0EB; line-height: 1.55; }
+.warn-box { background: rgba(224,149,106,0.08); border-left: 3px solid #E0956A; border-radius: 0 8px 8px 0; padding: 10px 12px; margin-bottom: 12px; }
+.warn-box p { font-size: 13px; color: #E8F0EB; line-height: 1.55; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em; border: 1px solid; }
+.tag-green { color: #A8D5B5; border-color: #2D5A3D; background: rgba(45,90,61,0.2); }
+.tag-amber { color: #C8A96E; border-color: #5A4A2A; background: rgba(90,74,42,0.2); }
+.tag-blue { color: #A8C5DF; border-color: #2A3A5A; background: rgba(42,58,90,0.2); }
+
+.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4A7A5A; margin-bottom: 8px; }
+.order-list { margin: 0; padding: 0; list-style: none; }
+.order-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(42,64,53,0.5); font-size: 13px; color: #C8D8CE; line-height: 1.5; }
+.order-item:last-child { border-bottom: none; }
+.order-item::before { content: '→'; color: #4A7A5A; flex-shrink: 0; padding-top: 1px; }
+
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.stat { background: rgba(45,90,61,0.2); border-radius: 8px; padding: 8px 10px; text-align: center; }
+.stat-val { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #A8D5B5; }
+.stat-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #7BAF8A; margin-top: 2px; }
+
+/* TIMING LADDER */
+.timing-ladder { display: flex; flex-direction: column; gap: 0; }
+.timing-row { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(42,64,53,0.5); }
+.timing-row:last-child { border-bottom: none; }
+.timing-time { font-family: 'DM Mono', monospace; font-size: 12px; color: #C8A96E; min-width: 55px; padding-top: 2px; }
+.timing-text { font-size: 13px; color: #C8D8CE; line-height: 1.5; }
+.timing-text strong { color: #E8F0EB; }
+
+.nav-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+.nav-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: #162A1D; border: 1px solid #2A4035; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 600; color: #A8D5B5; }
+.nav-btn:active { background: #1E3A27; }
+.nav-btn.next { background: #2D5A3D; border-color: #3A7A4D; color: #F0F7F2; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back">← Home</a>
+  <div class="page-label">Day 3 · Sunday May 10</div>
+  <h1 class="page-title">Ledges & Home</h1>
+  <p class="page-sub">The better hike, the best send-off lunch.</p>
+</div>
+
+<div class="timeline-strip">
+  <div class="t-chip">8:00 Ledges Trailhead</div>
+  <div class="t-chip">11:00 The South Side</div>
+  <div class="t-chip">Afternoon CLE → Home</div>
+</div>
+
+<div class="content">
+
+  <!-- LEDGES -->
+  <div class="event-card">
+    <div class="event-header">
+      <div class="event-time">8:00 AM</div>
+      <div>
+        <div class="event-type-label">Hiking · CVNP</div>
+        <div class="event-name">Ledges Trailhead</div>
+        <div class="event-addr"><a href="https://maps.google.com/?q=Ledges+Trailhead+Cuyahoga+Valley+National+Park+Peninsula+OH" target="_blank">CVNP, Peninsula, Ohio</a></div>
+      </div>
+    </div>
+    <div class="event-body">
+      <div class="stat-row">
+        <div class="stat"><div class="stat-val">2–3</div><div class="stat-lbl">Miles</div></div>
+        <div class="stat"><div class="stat-val">~2hrs</div><div class="stat-lbl">Duration</div></div>
+        <div class="stat"><div class="stat-val">4.9★</div><div class="stat-lbl">Rating</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-green">Rock formations</span>
+        <span class="tag tag-green">Icebox Cave</span>
+        <span class="tag tag-blue">Scenic overlook</span>
+        <span class="tag tag-blue">Restrooms at trailhead</span>
+      </div>
+      <div class="event-desc">The standout trail of the weekend. Sharon Conglomerate rock formations — ancient, dramatic, unlike anything in the Brandywine area. The outer loop counterclockwise is the right call: overlook first, then the cave section.</div>
+      <div class="highlight-box"><p>🧊 <strong>Do Icebox Cave.</strong> It's a short detour off the main loop — a narrow passage through rock that stays year-round cold. Adds 20 min and is the best part of the hike.</p></div>
+      <div class="section-label">Trail Notes</div>
+      <ul class="order-list">
+        <li class="order-item">Large paved parking lot — arrive by 8am to get a good spot</li>
+        <li class="order-item">Do the outer loop counterclockwise (3:00 on the map, then left) for the best sequence</li>
+        <li class="order-item">Overlook is an easy 10-min walk from the lot — don't skip it</li>
+        <li class="order-item">Bring water — no fountains on trail</li>
+        <li class="order-item">Roots and rocks on the cave section — trail shoes earn their keep here</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DRIVE NOTE -->
+  <div style="background:#162A1D; border:1px solid #2A4035; border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:10px;">
+    <span style="font-size:20px;">🚗</span>
+    <span style="font-size:13px; color:#7BAF8A;">Drive to Tremont ~30 min. The South Side opens at 10am Sundays — timing works perfectly.</span>
+  </div>
+
+  <!-- SOUTH SIDE -->
+  <div class="event-card">
+    <div class="event-header">
+      <div class="event-time">11:00 AM</div>
+      <div>
+        <div class="event-type-label">Send-Off Lunch</div>
+        <div class="event-name">The South Side</div>
+        <div class="event-addr"><a href="https://maps.google.com/?q=2207+W+11th+St+Cleveland+OH" target="_blank">2207 W 11th St, Tremont</a></div>
+      </div>
+    </div>
+    <div class="event-body">
+      <div class="tags">
+        <span class="tag tag-green">Opens 10am Sunday</span>
+        <span class="tag tag-green">15 min to CLE airport</span>
+        <span class="tag tag-green">$$</span>
+      </div>
+      <div class="event-desc">A beloved Tremont neighbourhood spot with big windows, great natural light, and a Sunday brunch menu that over-delivers. The smash burgers and nachos are the stars. If the patio's open, take it.</div>
+      <div class="section-label">Must Order</div>
+      <ul class="order-list">
+        <li class="order-item">Smash burger — some of the best in Cleveland</li>
+        <li class="order-item">Nachos — legitimately great, not an afterthought</li>
+        <li class="order-item">Mini donut flight — described by regulars as "a spiritual experience"</li>
+        <li class="order-item">Biscuits and gravy — if you're still going</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- AIRPORT TIMING -->
+  <div class="event-card">
+    <div class="event-header">
+      <div class="event-time">Afternoon</div>
+      <div>
+        <div class="event-type-label">Depart</div>
+        <div class="event-name">CLE → Home</div>
+        <div class="event-addr">Cleveland Hopkins International</div>
+      </div>
+    </div>
+    <div class="event-body">
+      <div class="event-desc">15 min from The South Side to the terminal. Return the rental car first (Hertz/Enterprise lots are right at the airport) — allow 20 min for that plus check-in and security.</div>
+      <div class="section-label">Timing Ladder</div>
+      <div class="timing-ladder">
+        <div class="timing-row"><div class="timing-time">11:00</div><div class="timing-text"><strong>Arrive South Side</strong> for lunch</div></div>
+        <div class="timing-row"><div class="timing-time">12:30</div><div class="timing-text"><strong>Leave Tremont</strong> — 15 min to airport</div></div>
+        <div class="timing-row"><div class="timing-time">12:45</div><div class="timing-text"><strong>Return rental car</strong> at CLE</div></div>
+        <div class="timing-row"><div class="timing-time">1:15</div><div class="timing-text"><strong>Through security</strong> — CLE is fast, rarely long waits</div></div>
+        <div class="timing-row"><div class="timing-time">3:00+</div><div class="timing-text"><strong>Target departure time</strong> — comfortable window</div></div>
+      </div>
+      <div class="warn-box" style="margin-top:12px"><p>✈️ Book a flight departing 3pm ET or later for zero stress. Any earlier and you're rushing out of Sunday lunch.</p></div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <a href="day2.html" class="nav-btn">← Saturday</a>
+    <a href="index.html" class="nav-btn next">Home ↑</a>
+  </div>
+
+</div>
+</body>
+</html>
